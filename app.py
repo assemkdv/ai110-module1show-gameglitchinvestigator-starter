@@ -1,5 +1,7 @@
 import random
 import streamlit as st
+from logic_utils import check_guess
+
 
 def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
@@ -29,24 +31,6 @@ def parse_guess(raw: str):
     return True, value, None
 
 
-def check_guess(guess, secret):
-    if guess == secret:
-        return "Win", "🎉 Correct!"
-
-    try:
-        if guess > secret:
-            return "Too High", "📈 Go HIGHER!"
-        else:
-            return "Too Low", "📉 Go LOWER!"
-    except TypeError:
-        g = str(guess)
-        if g == secret:
-            return "Win", "🎉 Correct!"
-        if g > secret:
-            return "Too High", "📈 Go HIGHER!"
-        return "Too Low", "📉 Go LOWER!"
-
-
 def update_score(current_score: int, outcome: str, attempt_number: int):
     if outcome == "Win":
         points = 100 - 10 * (attempt_number + 1)
@@ -71,12 +55,12 @@ st.caption("An AI-generated guessing game. Something is off.")
 
 st.sidebar.header("Settings")
 
+# FIXME: Difficulty mode does not update the secret number and attempts correctly when changed
 difficulty = st.sidebar.selectbox(
     "Difficulty",
     ["Easy", "Normal", "Hard"],
     index=1,
 )
-
 attempt_limit_map = {
     "Easy": 6,
     "Normal": 8,
@@ -88,6 +72,19 @@ low, high = get_range_for_difficulty(difficulty)
 
 st.sidebar.caption(f"Range: {low} to {high}")
 st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
+
+# If the difficulty selection changes, start a new game with the correct range
+if "current_difficulty" not in st.session_state:
+    st.session_state.current_difficulty = difficulty
+elif st.session_state.current_difficulty != difficulty:
+    st.session_state.current_difficulty = difficulty
+    st.session_state.secret = random.randint(low, high)
+    st.session_state.attempts = 1
+    # keep status as playing and clear history so the UI reflects new game
+    st.session_state.status = "playing"
+    st.session_state.history = []
+    st.success(f"Difficulty changed to {difficulty}. New game started.")
+    st.rerun()
 
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
@@ -126,6 +123,7 @@ raw_guess = st.text_input(
 col1, col2, col3 = st.columns(3)
 with col1:
     submit = st.button("Submit Guess 🚀")
+    # FIXME: New Game button not resetting session state
 with col2:
     new_game = st.button("New Game 🔁")
 with col3:
