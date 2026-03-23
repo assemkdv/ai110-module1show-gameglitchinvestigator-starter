@@ -33,6 +33,34 @@ It wrote the code, ran away, and now the game is unplayable.
 
 - [ ] [Insert a screenshot of your fixed, winning game here]
 
+This is a number guessing game built with Streamlit. The player selects a difficulty level and tries to guess the secret number within a limited number of attempts.
+
+Features:
+- Multiple difficulty levels (Easy, Normal, Hard)
+- Dynamic number ranges based on difficulty
+- Hint system (Too High / Too Low)
+- Score tracking
+- Game reset functionality
+
+The game was debugged and improved using AI-assisted development with GitHub Copilot.
+
+## Document Experience
+
+During this project, I used GitHub Copilot as a debugging assistant to identify and fix issues in the game.
+
+One major bug was the hint logic, where the game incorrectly told the user to guess higher when the guess was already too high. Copilot helped identify that the comparison logic and messages were reversed, and I fixed the function accordingly.
+
+Another issue was with difficulty settings. The game did not properly update the number range and secret value when switching difficulty levels. Copilot partially helped identify the issue, but I had to manually implement the correct logic and move the function into logic_utils.py to fix it.
+
+I also used pytest to verify my fixes. I created test cases for both the guessing logic and difficulty ranges, ensuring that all edge cases were handled correctly. After implementing the fixes, all tests passed successfully.
+
+Overall, AI was helpful in explaining logic and suggesting fixes, but I still needed to review, test, and correct incomplete suggestions. This experience showed me the importance of combining AI assistance with human debugging and verification.
+
 ## 🚀 Stretch Features
 
 - [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+
+## Test Results
+
+![Pytest Results](pytest.png)
+
