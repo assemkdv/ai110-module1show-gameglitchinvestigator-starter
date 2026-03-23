@@ -64,3 +64,33 @@ Overall, AI was helpful in explaining logic and suggesting fixes, but I still ne
 
 ![Pytest Results](pytest.png)
 
+## Final Reflection
+
+### What did you learn about debugging with AI?
+
+I learned that AI can be very helpful for identifying bugs and explaining code, but it is not always completely accurate. It can point me in the right direction, but I still need to understand the logic and verify the fixes myself. Debugging with AI is a collaborative process where I guide the AI and check its suggestions carefully.
+
+---
+
+### When was AI most helpful?
+
+AI was most helpful when explaining the hint logic bug. It clearly showed that the comparison logic and messages were reversed, which made it easier to fix the issue. It also helped generate pytest test cases, which made it easier to verify that my fixes were correct.
+
+---
+
+### When was AI misleading or incorrect?
+
+AI was sometimes incomplete when fixing the difficulty bug. It did not fully implement the get_range_for_difficulty function in logic_utils.py, which caused tests to fail with a NotImplementedError. I had to recognize the issue from the test output and manually implement the function.
+
+---
+
+### How did you verify your fixes?
+
+I verified my fixes by writing and running pytest test cases. The tests checked the hint logic and difficulty ranges. I also manually tested the app using Streamlit to make sure the game worked correctly, including hints, difficulty changes, and game reset behavior.
+
+---
+
+### What would you do differently next time?
+
+Next time, I would write tests earlier in the debugging process to catch issues faster. I would also give more specific instructions to AI to avoid incomplete or unclear suggestions.
+
